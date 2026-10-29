@@ -8,7 +8,7 @@
             <p class="text-xs text-slate-500 mt-0.5">Memantau seluruh rekam jejak tindakan dan operasional admin.</p>
         </div>
 
-        <!-- Form Pencarian Log -->
+        <!-- search form -->
         <form method="GET" action="{{ route('admin.activity-logs.index') }}" class="flex items-center gap-2">
             <input type="text" name="q" value="{{ request('q') }}" placeholder="Cari aktivitas, admin, atau aksi..."
                 class="rounded-lg border border-slate-300 px-3 py-1.5 text-xs focus:border-blue-500 focus:ring-blue-500 w-64">
@@ -51,12 +51,11 @@
                                     default => 'bg-slate-100 text-slate-700'
                                 };
                             @endphp
-                            <!-- Badge Modern & Clean dengan soft background tanpa border kaku -->
                             <span class="inline-flex items-center px-3 py-1 text-xs font-semibold rounded-full {{ $badgeColor }}">
                                 {{ $log->action }}
                             </span>
                         </td>
-                        <!-- Keterangan detail diperjelas agar nyaman dibaca -->
+
                         <td class="px-4 py-3 text-slate-800 text-sm font-normal">
                             {{ $log->description }}
                         </td>
@@ -74,7 +73,7 @@
 
     <div class="mt-4">{{ $logs->links() }}</div>
 
-    <!-- Catatan Informasi Formal -->
+    <!-- retention notice -->
     <div class="mt-4 text-xs text-slate-500">
         <p>Catatan: Log aktivitas sistem akan dihapus secara otomatis apabila usianya telah melebihi 30 hari.</p>
     </div>

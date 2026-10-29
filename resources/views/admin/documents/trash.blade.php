@@ -33,7 +33,6 @@
                             {{ $document->judul }}
                         </td>
                         <td class="px-4 py-5 text-slate-600 text-xs">
-                            <!-- Badge Tipe Dokumen dengan padding yang lebih lega (px-4 py-2) -->
                             <span class="inline-flex items-center rounded-lg bg-slate-100 px-4 py-2 text-xs font-medium text-slate-700">
                                 {{ $document->tipe_dokumen }}
                             </span>
@@ -46,7 +45,7 @@
                         </td>
                         <td class="px-4 py-5 text-center whitespace-nowrap">
                             <div class="inline-flex items-center gap-2">
-                                <!-- Tombol Pulihkan -->
+
                                 <form action="{{ route('admin.documents.restore', $document->id) }}" method="POST" class="inline">
                                     @csrf
                                     @method('PUT')
@@ -58,7 +57,7 @@
                                     </button>
                                 </form>
 
-                                <!-- Tombol Hapus Permanen -->
+
                                 <form action="{{ route('admin.documents.force-delete', $document->id) }}" method="POST" class="inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus dokumen ini secara permanen? Data tidak dapat dikembalikan.');">
                                     @csrf
                                     @method('DELETE')

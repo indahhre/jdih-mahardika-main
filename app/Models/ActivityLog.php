@@ -4,11 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Prunable; // <-- TAMBAHAN: Import trait Prunable
+use Illuminate\Database\Eloquent\Prunable;
 
 class ActivityLog extends Model
 {
-    use HasFactory, Prunable; // <-- TAMBAHAN: Menyertakan trait Prunable di sini
+    use HasFactory, Prunable;
 
     protected $fillable = [
         'user_id',
@@ -17,7 +17,7 @@ class ActivityLog extends Model
     ];
 
     /**
-     * Relasi ke User (Admin yang melakukan aksi)
+     * Relasi ke User (admin yang melakukan aksi).
      */
     public function user()
     {
@@ -25,7 +25,7 @@ class ActivityLog extends Model
     }
 
     /**
-     * TAMBAHAN: Tentukan kriteria data log yang akan dihapus otomatis (lebih dari 30 hari)
+     * Kriteria record log yang akan di-prune (lebih dari 30 hari).
      */
     public function prunable()
     {

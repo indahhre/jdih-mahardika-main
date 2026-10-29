@@ -9,7 +9,7 @@ class DocumentType extends Model
     protected $table = 'document_types';
 
     protected $fillable = [
-        'name', // Pastikan ini sesuai dengan nama kolom di database kamu
+        'name',
     ];
 
     public function documents()

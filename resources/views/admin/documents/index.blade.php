@@ -3,11 +3,11 @@
 @section('title', 'Dokumen')
 
 @section('content')
-    <!-- Toolbar Filter & Pencarian Admin -->
+    <!-- filter & search toolbar -->
     <div class="mb-4 bg-white p-3 rounded-xl border border-slate-200 shadow-sm">
         <form method="GET" action="{{ route('admin.documents.index') }}" class="flex flex-col gap-3">
             
-            <!-- 1. Baris Atas: Form Pencarian Dokumen -->
+            <!-- search input -->
             <div class="flex items-center gap-2">
                 <input type="text" name="q" value="{{ request('q') }}" placeholder="Cari dokumen…"
                     class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-blue-500">
@@ -16,12 +16,12 @@
                 </button>
             </div>
 
-            <!-- 2. Baris Bawah: Dropdown Filter & Tombol Tambah Dokumen -->
+            <!-- filters & actions -->
             <div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-slate-100">
                 
-                <!-- Filter Dropdown & Tombol Aksi Filter -->
+
                 <div class="flex flex-wrap items-center gap-2">
-                    <!-- Filter Jenis Dokumen -->
+
                     <select name="jenis" onchange="this.form.submit()" class="rounded-lg border border-slate-300 bg-white px-2.5 py-1.5 text-xs text-slate-700 focus:border-blue-500 focus:ring-blue-500 cursor-pointer">
                         <option value="">Semua Jenis</option>
                         @foreach($types as $type)
@@ -29,7 +29,7 @@
                         @endforeach
                     </select>
 
-                    <!-- Filter Tahun -->
+
                     <select name="tahun" onchange="this.form.submit()" class="rounded-lg border border-slate-300 bg-white px-2.5 py-1.5 text-xs text-slate-700 focus:border-blue-500 focus:ring-blue-500 cursor-pointer">
                         <option value="">Semua Tahun</option>
                         @foreach($years as $year)
@@ -37,14 +37,14 @@
                         @endforeach
                     </select>
 
-                    <!-- Filter Status -->
+
                     <select name="status" onchange="this.form.submit()" class="rounded-lg border border-slate-300 bg-white px-2.5 py-1.5 text-xs text-slate-700 focus:border-blue-500 focus:ring-blue-500 cursor-pointer">
                         <option value="">Semua Status</option>
                         <option value="Berlaku" {{ request('status') == 'Berlaku' ? 'selected' : '' }}>Berlaku</option>
                         <option value="Tidak Berlaku" {{ request('status') == 'Tidak Berlaku' ? 'selected' : '' }}>Tidak Berlaku</option>
                     </select>
 
-                    <!-- Dropdown Urutan / Sorting -->
+
                     <select name="sort" onchange="this.form.submit()" class="rounded-lg border border-slate-300 bg-white px-2.5 py-1.5 text-xs text-slate-700 focus:border-blue-500 focus:ring-blue-500 cursor-pointer">
                         <option value="latest" {{ request('sort', 'latest') == 'latest' ? 'selected' : '' }}>Upload Terbaru</option>
                         <option value="oldest" {{ request('sort') == 'oldest' ? 'selected' : '' }}>Terlama</option>
@@ -59,7 +59,7 @@
                     @endif
                 </div>
 
-                <!-- Tombol Tambah Dokumen -->
+
                 <div class="flex items-center gap-2 shrink-0">
                     <a href="{{ route('admin.documents.create') }}" class="inline-flex items-center gap-1.5 rounded-lg bg-blue-700 px-4 py-2 text-center text-sm font-medium text-white hover:bg-blue-800 transition whitespace-nowrap cursor-pointer">
                         <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -74,7 +74,7 @@
         </form>
     </div>
 
-    <!-- Tabel Daftar Dokumen -->
+    <!-- document table -->
     <div class="overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-sm">
         <table class="w-full min-w-[720px] text-sm">
             <thead class="bg-slate-50 text-left text-xs uppercase text-slate-500 border-b border-slate-200">
@@ -92,7 +92,6 @@
                     <tr class="hover:bg-slate-50/50 transition">
                         <td class="px-4 py-5 font-medium text-slate-900">{{ \Illuminate\Support\Str::limit($document->judul, 60) }}</td>
                         <td class="px-4 py-5 text-slate-500">
-                            <!-- Badge Tipe Dokumen dengan padding yang lebih longgar (px-4 py-2) -->
                             <span class="inline-flex items-center rounded-lg bg-slate-100 px-4 py-2 text-xs font-medium text-slate-700">
                                 {{ $document->tipe_dokumen }}
                             </span>

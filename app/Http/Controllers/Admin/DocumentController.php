@@ -24,7 +24,7 @@ class DocumentController extends Controller
             ->when($request->filled('tahun'), fn ($q) => $q->where('tahun', $request->tahun))
             ->when($request->filled('status'), fn ($q) => $q->where('status', $request->status));
 
-        // Pengurutan data (Sorting)
+        // Sorting
         $sort = $request->input('sort', 'latest');
         if ($sort === 'oldest') {
             $query->orderBy('tahun', 'asc')->orderBy('id', 'asc');
@@ -38,7 +38,7 @@ class DocumentController extends Controller
 
         $documents = $query->paginate(15)->withQueryString();
 
-        // Ambil data unik untuk opsi filter dropdown di view admin
+        // Ambil opsi dropdown filter
         $types = Document::select('tipe_dokumen')->distinct()->pluck('tipe_dokumen');
         $years = Document::select('tahun')->distinct()->orderBy('tahun', 'desc')->pluck('tahun');
 
@@ -94,7 +94,7 @@ class DocumentController extends Controller
 
         $document = Document::create($data);
 
-        // OTOMATISASI: Jika ada dokumen lama yang dipilih untuk dicabut via mencabut_id
+        // Sinkronisasi relasi pencabutan jika ada dokumen yang dipilih
         if (!empty($data['mencabut_id'])) {
             $targetId = $data['mencabut_id'];
 
@@ -108,7 +108,6 @@ class DocumentController extends Controller
             ]);
         }
 
-        // TAMBAHAN: Catat log aktivitas tambah
         ActivityLog::create([
             'user_id' => auth()->id(),
             'action' => 'TAMBAH',
@@ -155,7 +154,7 @@ class DocumentController extends Controller
 
         $document->update($data);
 
-        // OTOMATISASI UPDATE: Sinkronisasi relasi via mencabut_id
+        // Sinkronisasi relasi pencabutan saat update
         if (!empty($data['mencabut_id'])) {
             $targetId = $data['mencabut_id'];
 
@@ -171,7 +170,6 @@ class DocumentController extends Controller
             $document->mencabutDokumenRelasi()->detach();
         }
 
-        // TAMBAHAN: Catat log aktivitas ubah
         ActivityLog::create([
             'user_id' => auth()->id(),
             'action' => 'UBAH',
@@ -186,9 +184,8 @@ class DocumentController extends Controller
         abort_unless($request->user()->isSuperAdmin(), 403, 'Hanya super admin yang boleh menghapus dokumen.');
 
         $judul = $document->judul;
-        $document->delete(); // Soft Delete (masuk ke tempat sampah)
+        $document->delete(); // soft delete
 
-        // TAMBAHAN: Catat log aktivitas hapus sementara
         ActivityLog::create([
             'user_id' => auth()->id(),
             'action' => 'HAPUS',
@@ -198,7 +195,7 @@ class DocumentController extends Controller
         return redirect()->route('admin.documents.index')->with('status', 'Dokumen berhasil dipindahkan ke Tempat Sampah.');
     }
 
-    // TAMBAHAN BARU: Method untuk Kelola Tempat Sampah (Soft Delete)
+    // Kelola Tempat Sampah (Soft Delete)
     public function trash(Request $request)
     {
         abort_unless($request->user()->isSuperAdmin(), 403, 'Hanya super admin yang boleh mengakses tempat sampah.');

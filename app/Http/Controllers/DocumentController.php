@@ -33,7 +33,7 @@ class DocumentController extends Controller
 
         $documents = $query->orderByDesc('tahun')->orderByDesc('id')->paginate(12)->withQueryString();
 
-        // Diurutkan berdasarkan alfabet A-Z nama tipe_dokumen
+        // group by tipe, sort A-Z
         $types = Document::query()
             ->selectRaw('tipe_dokumen, count(*) as total')
             ->groupBy('tipe_dokumen')

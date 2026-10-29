@@ -8,16 +8,16 @@ use Illuminate\Http\UploadedFile;
 class DocumentDuplicateChecker
 {
     /**
-     * Mengecek apakah ada dokumen yang sama persis berdasarkan file fisik atau nomor.
+     * Cek duplikasi dokumen berdasarkan hash file atau nomor.
      */
     public function check(array $data, ?int $excludeDocumentId = null): array
     {
         $query = Document::with('createdBy');
 
-        // Ambil objek file (mendukung kunci 'file' atau 'file_dokumen')
+        // Dukung dua kemungkinan kunci input file
         $uploadedFile = $data['file'] ?? $data['file_dokumen'] ?? null;
 
-        // 1. Cek File Hash (Isi Berkas Identik) menggunakan algoritma SHA-256
+        // 1. Cek hash file (SHA-256) — deteksi konten identik
         if ($uploadedFile instanceof UploadedFile && $uploadedFile->isValid()) {
             $filePath = $uploadedFile->getRealPath();
             
@@ -36,7 +36,7 @@ class DocumentDuplicateChecker
             }
         }
 
-        // 2. Cek Nomor Dokumen Identik
+        // 2. Cek nomor dokumen
         if (!empty($data['nomor'])) {
             $nomorClean = trim($data['nomor']);
             
@@ -51,12 +51,12 @@ class DocumentDuplicateChecker
             }
         }
 
-        // Jika aman, kembalikan status false (tidak diblokir)
+        // Tidak ada duplikat
         return ['is_blocked' => false, 'message' => ''];
     }
 
     /**
-     * Memformat pesan error agar informatif sesuai spesifikasi
+     * Format pesan error duplikat.
      */
     private function formatResponse($document, $reason)
     {

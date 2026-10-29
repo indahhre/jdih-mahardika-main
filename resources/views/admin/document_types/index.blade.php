@@ -28,7 +28,7 @@
         </div>
     @endif
 
-    <!-- Form Tambah Jenis Dokumen (Khusus Super Admin) -->
+    <!-- tambah jenis dokumen -->
     <div class="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
         <h3 class="mb-3 text-sm font-semibold text-slate-700">Tambah Jenis Dokumen Baru</h3>
         <form action="{{ route('admin.document-types.store') }}" method="POST" class="flex gap-3">
@@ -41,7 +41,7 @@
         </form>
     </div>
 
-    <!-- Tabel Daftar Jenis Dokumen -->
+    <!-- tabel jenis dokumen -->
     <div class="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
         <table class="w-full text-left border-collapse text-sm">
             <thead class="bg-slate-50 border-b border-slate-200 text-slate-700">

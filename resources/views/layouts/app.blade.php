@@ -7,7 +7,7 @@
     <meta name="description" content="Jaringan Dokumentasi dan Informasi Hukum Universitas Insan Mahardika.">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     
-    <!-- Tambahan: FontAwesome untuk ikon jenis dokumen yang formal & bervariasi -->
+    <!-- FontAwesome untuk ikon jenis dokumen -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body class="min-h-screen bg-slate-50 text-slate-800">
@@ -21,7 +21,7 @@
                 </span>
             </a>
 
-            {{-- Desktop nav --}}
+            {{-- desktop nav --}}
             <nav class="hidden items-center gap-1 text-sm font-medium text-slate-600 md:flex">
                 <a href="{{ route('documents.index') }}" class="rounded-lg px-3 py-2 hover:bg-slate-100 hover:text-blue-800">Beranda</a>
                 <a href="{{ route('documents.index') }}#dokumen" class="rounded-lg px-3 py-2 hover:bg-slate-100 hover:text-blue-800">Dokumen</a>
@@ -42,7 +42,7 @@
                 <a href="{{ route('documents.index') }}#kontak" class="rounded-lg px-3 py-2 hover:bg-slate-100 hover:text-blue-800">Kontak</a>
             </nav>
 
-            {{-- Mobile nav toggle --}}
+            {{-- mobile nav --}}
             <details class="md:hidden">
                 <summary class="flex h-10 w-10 cursor-pointer list-none items-center justify-center rounded-lg border border-slate-200">
                     <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>

@@ -182,7 +182,7 @@
         
         const documentId = "{{ $document->exists ? $document->id : '' }}";
 
-        // --- Auto-Format Title Case Judul via Enter ---
+        // format judul ke Title Case saat user tekan Enter
         const inputJudul = document.getElementById('judul');
 
         function formatJudulToTitleCase() {
@@ -206,7 +206,7 @@
         if (inputJudul) {
             inputJudul.addEventListener('keydown', function (e) {
                 if (e.key === 'Enter') {
-                    e.preventDefault(); // Mencegah form tersubmit langsung saat Enter
+                    e.preventDefault(); // cegah submit saat Enter di field judul
                     formatJudulToTitleCase();
                 }
             });

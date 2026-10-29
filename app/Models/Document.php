@@ -59,8 +59,8 @@ class Document extends Model
     }
 
     /**
-     * TAMBAHAN BARU: Relasi many-to-many via tabel document_relations
-     * Dokumen baru yang mencabut dokumen lama
+     * Relasi many-to-many via tabel document_relations.
+     * Dokumen baru (this) mencabut dokumen lama (target).
      */
     public function mencabutDokumenRelasi(): BelongsToMany
     {
@@ -70,8 +70,8 @@ class Document extends Model
     }
 
     /**
-     * TAMBAHAN BARU: Relasi many-to-many via tabel document_relations
-     * Dokumen lama yang dicabut oleh dokumen baru
+     * Relasi many-to-many via tabel document_relations.
+     * Dokumen lama (this) yang dicabut oleh dokumen baru (source).
      */
     public function dicabutOlehRelasi(): BelongsToMany
     {

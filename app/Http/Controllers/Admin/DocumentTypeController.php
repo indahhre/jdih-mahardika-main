@@ -18,7 +18,7 @@ class DocumentTypeController extends Controller
 
     public function store(Request $request)
     {
-        // Format otomatis menjadi Title Case (Huruf kapital di setiap awal kata)
+        // Normalisasi ke Title Case sebelum validasi
         $formattedName = ucwords(strtolower(trim($request->name)));
         $request->merge(['name' => $formattedName]);
 

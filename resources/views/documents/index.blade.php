@@ -4,12 +4,12 @@
 
 @section('content')
     @php
-        // Mengurutkan jenis dokumen secara alfabetis (A-Z) untuk seluruh bagian
+        // sort A-Z
         $sortedTypes = collect($types)->sortBy('tipe_dokumen');
     @endphp
 
     <section class="relative overflow-hidden bg-blue-950 text-white">
-        {{-- Real campus photo: portrait crop on mobile, landscape on md+ --}}
+        {{-- hero background: portrait mobile, landscape md+ --}}
         <div class="absolute inset-0 bg-[url('/hero-banner-vertical.jpg')] bg-cover bg-center md:bg-[url('/hero-banner-horizontal.jpg')]" aria-hidden="true"></div>
         <div class="absolute inset-0 bg-gradient-to-b from-blue-950/90 via-blue-950/80 to-blue-950" aria-hidden="true"></div>
 
@@ -23,7 +23,7 @@
                 </p>
             </div>
 
-            {{-- Advanced search card --}}
+            {{-- search card --}}
             <form action="{{ route('documents.index') }}#dokumen" method="get"
                 class="animate-fade-in-up mx-auto mt-8 grid max-w-3xl gap-3 rounded-2xl bg-white p-4 shadow-2xl md:grid-cols-[2fr_1fr_1fr_auto] md:items-end"
                 style="animation-delay: 80ms">
@@ -76,7 +76,7 @@
             @endphp
             @foreach ($sortedCardTypes as $index => $type)
                 @php
-                    // Deskripsi spesifik, unik, dan informatif untuk setiap jenis dokumen
+                    // tooltip per jenis dokumen
                     $tooltipDesc = match(strtolower($type->tipe_dokumen)) {
                         'peraturan rektor' => 'Regulasi tingkat universitas yang ditetapkan langsung oleh Rektor untuk mengatur penyelenggaraan tridharma, tata kelola, dan ketertiban kampus.',
                         'peraturan yayasan' => 'Ketentuan dasar, kebijakan strategis, dan regulasi internal yang ditetapkan oleh Yayasan penyelenggara universitas.',
@@ -93,51 +93,51 @@
                     };
                 @endphp
 
-                <!-- Pembungkus Card dengan efek Hover Tooltip -->
+
                 <div class="relative group">
                     <a href="{{ route('documents.index') }}?jenis={{ urlencode($type->tipe_dokumen) }}#dokumen"
                         class="block rounded-xl border border-slate-200 bg-white p-5 transition-all duration-200 hover:-translate-y-1 hover:border-blue-400 hover:shadow-md">
                         <div class="mb-3 flex items-center justify-between">
-                            <!-- Container Ikon Profesional & Bervariasi -->
+
                             <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-slate-100 text-slate-800 group-hover:bg-blue-900 group-hover:text-white transition-colors duration-200">
                                 @php
                                     $t = strtolower($type->tipe_dokumen);
                                 @endphp
 
                                 @if(str_contains($t, 'peraturan'))
-                                    {{-- Ikon Timbangan Keadilan (Clean Balance Scale) --}}
+                                    {{-- peraturan: balance scale --}}
                                     <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 3v18m-5-2h10M4 7l8-3 8 3M5 7l3 6H2l3-6zm14 0l3 6h-6l3-6z"/>
                                     </svg>
                                 @elseif(str_contains($t, 'keputusan') || str_contains($t, 'sk'))
-                                    {{-- Ikon Dokumen Resmi / SK --}}
+                                    {{-- keputusan / SK --}}
                                     <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                                     </svg>
                                 @elseif(str_contains($t, 'spmi') || str_contains($t, 'mutu'))
-                                    {{-- Ikon Perisai Mutu (Shield Check) --}}
+                                    {{-- mutu / SPMI: shield --}}
                                     <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
                                     </svg>
                                 @elseif(str_contains($t, 'kerjasama') || str_contains($t, 'kerja sama'))
-                                    {{-- Ikon Tautan / Kerja Sama Dokumen --}}
+                                    {{-- kerjasama: link --}}
                                     <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/>
                                     </svg>
                                 @elseif(str_contains($t, 'pedoman') || str_contains($t, 'panduan'))
-                                    {{-- Ikon Buku / Panduan --}}
+                                    {{-- pedoman: book --}}
                                     <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
                                     </svg>
                                 @else
-                                    {{-- Ikon Folder Arsip Umum --}}
+                                    {{-- default: folder --}}
                                     <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M5 19a2 2 0 01-2-2V7a2 2 0 012-2h4l2 2h4a2 2 0 012 2v1M5 19h14a2 2 0 002-2v-5a2 2 0 00-2-2H9a2 2 0 00-2 2v5a2 2 0 01-2 2z"/>
                                     </svg>
                                 @endif
                             </div>
 
-                            <!-- Badge Total Dokumen -->
+
                             <span class="inline-flex rounded-full px-3 py-1 text-sm font-bold {{ $badgeColors[$index % count($badgeColors)] }}">
                                 {{ $type->total }}
                             </span>
@@ -147,7 +147,7 @@
                         <p class="text-xs text-slate-400">dokumen</p>
                     </a>
 
-                    <!-- TOOLTIP SPESIFIK & ELEGAN -->
+                    <!-- hover tooltip -->
                     <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 hidden group-hover:block w-72 p-4 bg-white text-slate-900 text-xs rounded-xl shadow-xl shadow-slate-900/10 border border-slate-200 z-50 pointer-events-none transition-all">
                         <div class="flex items-center gap-2 mb-2 pb-2 border-b border-slate-100">
                             <span class="p-1 rounded-md bg-blue-50 text-blue-700">
