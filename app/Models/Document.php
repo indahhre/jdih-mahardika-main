@@ -21,7 +21,7 @@ class Document extends Model
         'ringkasan', 'tags',
         'mencabut_id', 'dicabut_dengan_id', 'mencabut_teks', 'dicabut_dengan_teks',
         'file_url', 'gdrive_url', 'legacy_source_id',
-        'file_hash', 'file_name', 'file_size', 'created_by_id',
+        'file_hash', 'file_name', 'file_size', 'created_by_id', 'archived_at'
     ];
 
     protected function casts(): array
@@ -31,6 +31,7 @@ class Document extends Model
             'tanggal_pengundangan' => 'date',
             'tanggal_berakhir' => 'date',
             'tags' => 'array',
+            'archived_at' => 'datetime',
         ];
     }
 

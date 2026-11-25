@@ -20,7 +20,7 @@
     </a>
 @endif
 
-<a href="{{ route('admin.documents.trash') }}" class="rounded-lg px-3 py-2.5 hover:bg-blue-900 cursor-pointer {{ request()->routeIs('admin.documents.trash') ? 'bg-blue-900 text-white' : '' }}">
+<a href="{{ route('admin.documents.archived') }}" class="rounded-lg px-3 py-2.5 hover:bg-blue-900 cursor-pointer {{ request()->routeIs('admin.documents.archived') || request()->routeIs('admin.documents.trash') ? 'bg-blue-900 text-white' : '' }}">
     Arsip Dokumen
 </a>
 <a href="{{ route('admin.activity-logs.index') }}" class="rounded-lg px-3 py-2.5 hover:bg-blue-900 cursor-pointer {{ request()->routeIs('admin.activity-logs.*') ? 'bg-blue-900 text-white' : '' }}">

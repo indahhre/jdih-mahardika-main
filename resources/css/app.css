@@ -29,12 +29,40 @@ html {
     }
     to {
         opacity: 1;
-        transform: translateY(0);
+        transform: none;
     }
 }
 
 .animate-fade-in-up {
     animation: fade-in-up 0.4s ease-out both;
+}
+
+@keyframes slide-in-side {
+    0% {
+        opacity: 0;
+        transform: translateX(-64px) scale(0.96);
+    }
+    100% {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes float-gentle {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-7px);
+    }
+}
+
+.animate-slide-in-side {
+    animation: slide-in-side 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-float-gentle {
+    animation: float-gentle 4.5s ease-in-out 0.85s infinite;
 }
 
 details > div:last-child {

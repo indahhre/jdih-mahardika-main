@@ -25,11 +25,14 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
 
     Route::post('/dokumen/check-duplicate', [AdminDocumentController::class, 'checkDuplicate'])->name('documents.check-duplicate');
 
-    // --- Route Arsip Terhapus (Diletakkan di ATAS Route Resource) ---
-    Route::get('dokumen/arsip', [AdminDocumentController::class, 'trash'])->name('documents.trash');
-    Route::post('dokumen/{id}/restore', [AdminDocumentController::class, 'restore'])->name('documents.restore');
+    // --- Route Arsip Dokumen & Pemulihan ---
+    Route::get('dokumen/arsip', [AdminDocumentController::class, 'archivedIndex'])->name('documents.trash');
+    Route::get('dokumen/arsip-dokumen', [AdminDocumentController::class, 'archivedIndex'])->name('documents.archived');
+    Route::match(['patch', 'post', 'put'], 'dokumen/{id}/restore', [AdminDocumentController::class, 'restoreArchived'])->name('documents.restore');
+    Route::match(['patch', 'post', 'put'], 'dokumen/{id}/restore-archived', [AdminDocumentController::class, 'restoreArchived'])->name('documents.restore-archived');
     Route::delete('dokumen/{id}/force-delete', [AdminDocumentController::class, 'forceDelete'])->name('documents.force-delete');
-    
+    Route::patch('dokumen/{id}/archive', [AdminDocumentController::class, 'archive'])->name('documents.archive');
+
     // --- Route Log Aktivitas ---
     Route::get('activity-logs', [ActivityLogController::class, 'index'])->name('activity-logs.index');
 
